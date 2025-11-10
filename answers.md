@@ -58,7 +58,7 @@ fields.c    |           78050          |     56206           | 56206/78050 = 0.7
 
 def min_heapify(a, n, i):
     l = 2*i + 1
-    r = 2*i + 1
+    r = 2*i + 2
 
     #Keep track of whether current node is smaller than its children.
 
@@ -77,23 +77,42 @@ def min_heapify(a, n, i):
         a[i], a[smallest] = a[smallest], a[i]
         min_heapify(a, n, smallest)
 
+In the worst-case, min-heapify will 
+
 
 def build_min_heap(a, n):
 
     #Start bottom-up using the leaves since they are already heaps.
 
-    for i in rage(n//2 -1, -1, -1): #n//2-1 is the last internal node of the tree
+    for i in range(n//2 -1, -1, -1): #n//2-1 is the last internal node of the tree
 
         min_heapify(a, n, i)
 
+- Correctness
+-- We store the heap in array depicting an almost-complete binary tree with the left child of i being 2*i+1 and right child of i being represented by 2*i+2.
+
+--Invariant for the bottom-up approach: When we call min_heapify(a, n, i), both the subtrees rooted at i's children are already min-heaps.
+
+---Base: all leaves ( i >= n//2) are heaps.
+---Step: min_heapify compares a[i] with the smaller child, swaps if needed, and recurses only into that child. As the child's subtree was a heap, pushing the larger key down will mantain the heap property below. By the time the loop finishes at i=0, the whole tree is a heap.
 
 
+- Each call to min_heapify(i) will cost O(hi) where hi is the height of the nodes at i, how many levels it can move down.
+- In a complete binary tree, the number of nodes at height h is at most n/2^(h+1). 
+-- Thus, the total work <= summation from h>=0 of (n/2^(h+1)) * O(h) = O(n * summation from h>=0 of ((h)/(2^(h+1)))) = O(n), since summation of all h>=0 of (h/2^(h+1)) = 1.
 
 
 - **2b.**
 
+- The algorithm is sequential in nature, therefore the span will be O(N) just like the work.
 
+- Another approach is to do Level-parallel heapify: Grouping the nodes by the depth and then running sift_down in parallel for all the nodes at the same depth and then proceeding from the deepest internal level to the root.
 
+-- The nodes on a level touch disjoint subtrees, so there are no conflicts and the childrne have already been heapified. 
+
+-- The total work will remain O(N) but the span would be sum over the levels of the longest sift_down at that level: Summation from h = 1 to floor of (log2n)O(h) = O(log2n). 
+
+--- In contrast, meldable heaps with parallel reduce via meld as was proven in the class have W(n) = O(nlogn), S(n) = O(log2n) as expected.
 
 - **3a.**
 
