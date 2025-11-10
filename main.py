@@ -83,9 +83,6 @@ def fixed_length_cost(f):
 
     fixed_bit_size = math.ceil(math.log2(alphabets))
 
-    print(fixed_bit_size)
-
-
     total_symbols = sum(f.values())
 
     cost = fixed_bit_size * (total_symbols)
@@ -108,15 +105,25 @@ def huffman_cost(C, f):
         cost+= frequency * (len(C[character]))
 
     return cost
+ 
 
+files = ["f1.txt", "alice29.txt", "asyoulik.txt", "grammar.lsp", "fields.c"]
 
-f = get_frequencies('f1.txt')
-print("Fixed-length cost:  %d" % fixed_length_cost(f))
+for file in files:
+    print(file)
+    f = get_frequencies(file)
 
-f = get_frequencies('f1.txt')
-print("Fixed-length cost:  %d" % fixed_length_cost(f))
-T = make_huffman_tree(f)
-C = get_code(T)
-print("Huffman cost:  %d" % huffman_cost(C, f))
+    fixed_cost = fixed_length_cost(f)
+    print("Fixed-length cost:  %d" % fixed_cost)
+
+    T = make_huffman_tree(f)
+    C = get_code(T)
+    huff_cost = huffman_cost(C, f)
+    print("Huffman cost:  %d" % huff_cost)
+
+    ratio = (huff_cost / fixed_cost) if fixed_cost else float("nan")
+    print("Huffman vs Fixed-length:  %.4f" % ratio)
+    print("---------------------")
+
 
 
