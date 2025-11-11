@@ -168,6 +168,8 @@ Return coins_used, breakdown
 -- Every optimal solution for N starts with those q coins of value 2^p.
 -- The remaining part must solve the same problem on the amount R using only coins {2^0, ..., 2^p-1}, a coin > 2^p cannot appear because R <2^P). Therefore, we can represent the optimal substructure by: OPT(N, k) = q + OPT(R, p - 1)
 
+--- Proving optimality by strong induction on N: The base cases N = 0 (cost 0) and N < 2^0 are trivial. For N > 0, by the greedy choice lemma, the first step in every optimal solution is to take q coins of value 2^p. The remain R < N is solved optimally by the inductive hypothesis, so the algorithm's total coin count is q + OPT(R, p - 1) which is optimal for N.
+
 
 - **3c.**
 
