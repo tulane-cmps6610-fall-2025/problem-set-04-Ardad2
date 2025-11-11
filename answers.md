@@ -216,6 +216,10 @@ for x = 1..N:
         
 answer = dp[N]
 
+- Work: W(N) = O(N * k). Each of the N amount states consider upto k denominations once and memoization ensures that no state is recomputed.
+- Span: This implementation is sequential so O(N * k). 
+- Possible Parallelization: FOr each x, the k candidates 1 + dp[x-d] can be min reduced in parallel, giving a per-state span of O(logK). Since dp[x] depends on smaller amounts, the states will execute in order and the overall span will be O(NlogK) with the same work.
+
 
 - **5a.**
 
