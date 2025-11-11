@@ -181,6 +181,11 @@ Return coins_used, breakdown
 
 - **4a.**
 
+- Here are two examples which show that the previous greedy choice of picking the largest possible denomination as comapred to the given amount N dollars would not work or not work optimally.
+- Eg 1. Let N = 100 and D = {40, 60, 70}. Greedy picks 70 first, remainder 30 is not representable so Greedy fails to make chance. Change can be made by taking 60 + 40, which is 2 coins.
+- Eg 2. Let N = 100 and D = {10, 30, 80, 70}. Greedy picks 80 first, but to make 20, it will have to take 2 10's. Therefore taking 3 coins. If it had taking 70 and 30, it would have been done in just 2 coins. So while Greedy leads to a solution it is not optimal.
+- Therefore, we have two examples that prove the greedy choice might not result in a solution and even if it did, it might not be the optimal one.
+
 
 
 - **4b.**
