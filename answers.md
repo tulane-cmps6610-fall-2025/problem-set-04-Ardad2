@@ -149,12 +149,24 @@ for power in range(k, -1, -1): # Greedy: Go from 2^k down to 2^0
 
 Return coins_used, breakdown
 
-
-
-
 - **3b.**
+ - Given an amount N, let p, which is the maximum power denomination coin we can take, we have
+ - p = min {floor(log2N), k}. If we have no provided value for k, then there are no restrictions, and we will take k as floor(log2N) since that is the maximum value.
+ - The maximum amount of coins we can take of denomination p is q = floor(N/(2^p)).
+ - Taking q coins of value 2^P, we can reduce N to N - q.2^p, and then repeat the same. N < 2^p, so the next p will be <= p -1. We will stop when N = 0.
+ - Greedy Choice Property
+ -- Claim: There exists an optima solution uses exactly q = floor(N/(2^p)) coins of value 2^p.
+ -- Proof: 
+ --- If we use more than q coins of 2^p, we would exceed N. 
+ --- Suppose an optimal solution S uses fewer than q coins of value 2^p. Then at least 2^p of the amount will be left that needs to be covered by smaller coins: {2^0, .., 2^p-1}. Any total >= 2^p would require at least two coins, the largest smaller coin is 2^p-1 and at least another one 2^1 coin would be required. 
+ --- These two coins can be replaced by one 2^p coin that keeps the sum the same and also reduces the coin count by 1.
+ --- Repeating this until possible would yields a solution with more 2^p coins and strictly fewer coins overall, therefore contradicting the optimality of S.
+ --- Therefore, an optimal solution must use exactly q coins of value 2^P.
 
-
+- Optimal Substructure
+-- Let R = N - q*2^p (so 0 <= R <= 2^P). 
+-- Every optimal solution for N starts with those q coins of value 2^p.
+-- The remaining part must solve the same problem on the amount R using only coins {2^0, ..., 2^p-1}, a coin > 2^p cannot appear because R <2^P). Therefore, we can represent the optimal substructure by: OPT(N, k) = q + OPT(R, p - 1)
 
 
 - **3c.**
