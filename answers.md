@@ -189,6 +189,15 @@ Return coins_used, breakdown
 
 
 - **4b.**
+- Optimal Substructure
+- Define OPT(N) = the minimum number of coins whose values sum to N (and +infinity if impossible)
+- For any N > 0 with OPT(N) < +infinity, there exists a coin d element of D with d <= N such that
+- OPT(N) = 1 + OPT(N - d)
+- The multiset of coins used for N - d in that equality is itself optimal for the amount N - d.
+- Proof 
+- Take any optimal solution S for N. Let d the element of S be one coin in that solution, and let S' = S \ {d}. Then S' sums to N - d and |S| = 1 + |S'| = OPT(N).
+- If S' were not optimal for N - d, there would exist another solution T for N - d with |T| < |S'|. But then T U {d} is a solution for N using |T| + 1 < |S'| + 1 = OPT(N) coins, a contradiction.
+- Therefore, S' must be optimal for N - d, giving the stated recurrence.
 
 
 
