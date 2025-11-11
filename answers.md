@@ -173,7 +173,11 @@ Return coins_used, breakdown
 
 - **3c.**
 
+- Work = O(min(k+1, floor(log2N) + 1))
+-- Each loop iterations handles exactly one coin size 2^p with constant-time updates. It steps p down by 1 each time and never evisits a size, the so the number iteration is at most the number of avaliable sizes: k + 1 if there's a cap at 2^k or floor(log2N) + 1 if no such restriction is provided (largest coin chosen).
+-- This is generally around O(logN) for the unbounded cases.
 
+- Span = O(min(k+1, floor(log2N) + 1)), the same as work since the algorithm is sequential, with the iterations depending on the result of the previous ones.
 
 - **4a.**
 
