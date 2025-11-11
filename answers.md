@@ -204,6 +204,18 @@ Return coins_used, breakdown
 
 - **4c.**
 
+Let D = {d1,..., dk} be the denominations.
+dp[x] = the minimum no. of coints to make amount of coins (or +infinity if impossible to do so)
+
+dp[0] = 0
+for x = 1..N:
+    dp[x] = +infinity
+    for each d in D:
+        if d<=x:
+            dp[x] = min(dp[x], 1 + dp[x - d])
+        
+answer = dp[N]
+
 
 - **5a.**
 
