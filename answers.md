@@ -116,6 +116,40 @@ def build_min_heap(a, n):
 
 - **3a.**
 
+def change_pow2(N: int, k: int | None = none):
+
+#Return the (minimum no. of coins, the breakdown of each coin with how many times used) for making a given amount N with the coin with denominations {2^0, 2^1, 2^2, …, 2^k}.
+
+#Base cases
+
+if N < 0:
+	Error
+
+if N == 0:
+	return 0, {}
+
+#If there is no cap on the denominations of the currency, then the highest denomination would be 2^(ceiling log2n of N)).
+
+if k is None:
+	k = max(0, N.bit_length() - 1)
+
+coins_used = 0
+breakdown = {}
+
+for power in range(k, -1, -1): # Greedy: Go from 2^k down to 2^0
+
+	coin = 1 << power #Calculate the value of the denomination 2^p.
+	q, N = divmod(N, coin) #Take as many coins of this denomination that can fit.
+
+	if q:
+		breakdown[coin] = q
+		coins_used += q
+	if N == 0:
+		break; #We are done.
+
+Return coins_used, breakdown
+
+
 
 
 - **3b.**
