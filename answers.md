@@ -33,20 +33,20 @@ Place all written answers from `problemset-04.md` here for easier grading.
 
 - Let k = |sigma| be the number of distinct symbols.
 - If all k symbols occur equally often, the Huffman will builds an almost balanced tree and will only use two code lengths:
-    1. the short length b = floor of log2 of k 
+    1. the short length b = floor of $\log_2 k$
     2. the long length b + 1.
 
 - (Exactly 2^(b+1) - k symbols get length b; the rest get length b + 1)
 
 - Expected bits per character
 
-- Lavg = ( (2^(b+1) - k)b + (2k - 2^(b+1)) (b+1))/(k) = ceil(log2 of k) - ((2^(ceil of log2k) - k)/(k)) is between (log2k ,log2k + 1)
+- Lavg = ( (2^(b+1) - k)b + (2k - 2^(b+1)) (b+1))/(k) = ceil($\log_2 k$) - ((2^(ceil of $\log_2 k$) - k)/(k)) is between ($\log_2 k$ ,$\log_2 k$ + 1)
 
 - The total expected cost for a document of length L: Cost = L * Lavg
 
 - With equal frequencies, Lavg depends only on k, not on the particular document, so any two documents with the same alphabet size have the same per-character cost (the total scales by L).
 
-- Special case: If k is a power of two, then Lavg = log2k and Huffman equals fixedl ength. Otherwise, Lavg < ceiling of log2k (Huffman is strictly better by (2^(ceiling of log2k) -k))/k bits/char.
+- Special case: If k is a power of two, then Lavg = $\log_2 k$ and Huffman equals fixedl ength. Otherwise, Lavg < ceiling of $\log_2 k$ (Huffman is strictly better by (2^(ceiling of $\log_2 k$) -k))/k bits/char.
 
 
 - **2a.**
@@ -106,9 +106,9 @@ def build_min_heap(a, n):
 
     - The nodes on a level touch disjoint subtrees, so there are no conflicts and the childrne have already been heapified. 
 
-    - The total work will remain O(N) but the span would be sum over the levels of the longest sift_down at that level: Summation from h = 1 to floor of (log2n)O(h) = O(log2n). 
+    - The total work will remain O(N) but the span would be sum over the levels of the longest sift_down at that level: Summation from h = 1 to floor of ($\log_2 n$)O(h) = O($\log_2 n$). 
 
-        - In contrast, meldable heaps with parallel reduce via meld as was proven in the class have W(n) = O(nlogn), S(n) = O(log2n) as expected.
+        - In contrast, meldable heaps with parallel reduce via meld as was proven in the class have W(n) = O(n$\log_2 n$), S(n) = O($\log_2 n$) as expected.
 
 - **3a.**
 
@@ -125,7 +125,7 @@ if N < 0:
 if N == 0:
 	return 0, {}
 
-#If there is no cap on the denominations of the currency, then the highest denomination would be 2^(ceiling log2n of N)).
+#If there is no cap on the denominations of the currency, then the highest denomination would be 2^(ceiling $\log_2 N$ of N)).
 
 if k is None:
 	k = max(0, N.bit_length() - 1)
@@ -149,7 +149,7 @@ Return coins_used, breakdown
 
 - **3b.**
  - Given an amount N, let p, which is the maximum power denomination coin we can take, we have
- - p = min {floor(log2N), k}. If we have no provided value for k, then there are no restrictions, and we will take k as floor(log2N) since that is the maximum value.
+ - p = min {floor($\log_2 n$), k}. If we have no provided value for k, then there are no restrictions, and we will take k as floor($\log_2 n$) since that is the maximum value.
  - The maximum amount of coins we can take of denomination p is q = floor(N/(2^p)).
  - Taking q coins of value 2^P, we can reduce N to N - q.2^p, and then repeat the same. N < 2^p, so the next p will be <= p -1. We will stop when N = 0.
  - Greedy Choice Property
@@ -171,11 +171,11 @@ Return coins_used, breakdown
 
 - **3c.**
 
-- Work = O(min(k+1, floor(log2N) + 1))
-    - Each loop iterations handles exactly one coin size 2^p with constant-time updates. It steps p down by 1 each time and never evisits a size, the so the number iteration is at most the number of avaliable sizes: k + 1 if there's a cap at 2^k or floor(log2N) + 1 if no such restriction is provided (largest coin chosen).
-    - This is generally around O(logN) for the unbounded cases.
+- Work = O(min(k+1, floor($\log_2 n$) + 1))
+    - Each loop iterations handles exactly one coin size 2^p with constant-time updates. It steps p down by 1 each time and never evisits a size, the so the number iteration is at most the number of avaliable sizes: k + 1 if there's a cap at 2^k or floor($\log_2 n$) + 1 if no such restriction is provided (largest coin chosen).
+    - This is generally around O($\log_2 n$) for the unbounded cases.
 
-- Span = O(min(k+1, floor(log2N) + 1)), the same as work since the algorithm is sequential, with the iterations depending on the result of the previous ones.
+- Span = O(min(k+1, floor($\log_2 n$) + 1)), the same as work since the algorithm is sequential, with the iterations depending on the result of the previous ones.
 
 - **4a.**
 
@@ -218,7 +218,7 @@ answer = dp[N]
 
 - Work: W(N) = O(N * k). Each of the N amount states consider upto k denominations once and memoization ensures that no state is recomputed.
 - Span: This implementation is sequential so O(N * k). 
-- Possible Parallelization: FOr each x, the k candidates 1 + dp[x-d] can be min reduced in parallel, giving a per-state span of O(logK). Since dp[x] depends on smaller amounts, the states will execute in order and the overall span will be O(NlogK) with the same work.
+- Possible Parallelization: FOr each x, the k candidates 1 + dp[x-d] can be min reduced in parallel, giving a per-state span of O($\log_2 K$). Since dp[x] depends on smaller amounts, the states will execute in order and the overall span will be O(N$\log_2 K$) with the same work.
 
 
 - **5a.**
@@ -304,9 +304,9 @@ chosen.reverse()
 return dp[n], chosen
 ```
 
-- W(n) = W(sort by finish time) + W(computing p(i)) + W(dpSweep) = O(nLogn) + O(nlogn) (via binary search) + O(n) = O(nlogn)
-- S(n) = Same as W(n) = O(nlogn) (since the code is sequential)
+- W(n) = W(sort by finish time) + W(computing p(i)) + W(dpSweep) = O(n$\log_2 n$) + O(n$\log_2 n$) (via binary search) + O(n) = O(n$\log_2 n$)
+- S(n) = Same as W(n) = O(n$\log_2 n$) (since the code is sequential)
 
 - Sort and p(i) can be parallelized.
-    - S(sorting) = O((logn)^2), S(p(i)) = O(log n), S(dpSweep) = O(n). S(n) = O(n + log(n)^2) = O(n). 
-    - W(n) = O(nlogn) as before.
+    - S(sorting) = O(($\log_2 n$)^2), S(p(i)) = O($\log_2 n$), S(dpSweep) = O(n). S(n) = O(n + ($\log_2 n$)^2) = O(n). 
+    - W(n) = O(n$\log_2 n$) as before.
