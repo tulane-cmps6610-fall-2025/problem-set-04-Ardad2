@@ -11,13 +11,13 @@ Place all written answers from `problemset-04.md` here for easier grading.
 
 - **1d.**
 
-| File         | Fixed-Length Coding | Huffman Coding | Huffman / Fixed-Length |
-|:-------------|--------------------:|---------------:|-----------------------:|
-| f1.txt       |               1340  |           826  | 0.6164  (826/1340)     |
-| alice29.txt  |            1,039,367|        676,374 | 0.6508  (676374/1039367)|
-| asyoulik.txt |              876,253|        606,448 | 0.6921  (606448/876253) |
-| grammar.lsp  |               26,047|         17,356 | 0.6663  (17356/26047)   |
-| fields.c     |               78,050|         56,206 | 0.7201  (56206/78050)   |
+   | File         | Fixed-Length Coding | Huffman Coding | Huffman / Fixed-Length |
+   |:-------------|--------------------:|---------------:|-----------------------:|
+   | f1.txt       |               1340  |           826  | 0.6164 |
+   | alice29.txt  |            1039367  |        676374  | 0.6508 |
+   | asyoulik.txt |             876253  |        606448  | 0.6921 |
+   | grammar.lsp  |               26047 |         17356  | 0.6663 |
+   | fields.c     |               78050 |         56206  | 0.7201 |
 
 
 
