@@ -40,7 +40,7 @@ Place all written answers from `problemset-04.md` here for easier grading.
 
 - Expected bits per character
 
-- Lavg = ( (2^(b+1) - k)b + (2k - 2^(b+1)) (b+1))/(k) = ceil($\log_2 k$) - ((2^(ceil of $\log_2 k$) - k)/(k)) is between ($\log_2 k$ ,$\log_2 k$ + 1)
+- Lavg = ( (2^(b+1) - k)b + (2k - 2^(b+1)) (b+1))/(k) = ceil($\log_2 k$) - ((2^(ceil of $\log_2 k$) - k)/(k)) is between ($\log_2 k$ , $\log_2 k$ + 1)
 
 - The total expected cost for a document of length L: Cost = L * Lavg
 
@@ -88,8 +88,8 @@ def build_min_heap(a, n):
     - We store the heap in array depicting an almost-complete binary tree with the left child of i being 2*i+1 and right child of i being represented by 2*i+2.
 
     -Invariant for the bottom-up approach: When we call min_heapify(a, n, i), both the subtrees rooted at i's children are already min-heaps.
-
         -Base: all leaves ( i >= n//2) are heaps.
+        
         -Step: min_heapify compares a[i] with the smaller child, swaps if needed, and recurses only into that child. As the child's subtree was a heap, pushing the larger key down will mantain the heap property below. By the time the loop finishes at i=0, the whole tree is a heap.
 
 
@@ -304,9 +304,9 @@ chosen.reverse()
 return dp[n], chosen
 ```
 
-- W(n) = W(sort by finish time) + W(computing p(i)) + W(dpSweep) = O(n$\log_2 n$) + O(n$\log_2 n$) (via binary search) + O(n) = O(n$\log_2 n$)
+- W(n) = W(sort by finish time) + W(computing p(i)) + W(dpSweep) = O(n* $\log_2 n$) + O(n * $\log_2 n$) (via binary search) + O(n) = O(n & $\log_2 n$)
 - S(n) = Same as W(n) = O(n$\log_2 n$) (since the code is sequential)
 
 - Sort and p(i) can be parallelized.
     - S(sorting) = O(($\log_2 n$)^2), S(p(i)) = O($\log_2 n$), S(dpSweep) = O(n). S(n) = O(n + ($\log_2 n$)^2) = O(n). 
-    - W(n) = O(n$\log_2 n$) as before.
+    - W(n) = O(n* $\log_2 n$) as before.
