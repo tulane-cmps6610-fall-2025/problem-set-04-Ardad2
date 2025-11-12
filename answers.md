@@ -51,6 +51,7 @@ fields.c    |           78050          |     56206           | 56206/78050 = 0.7
 
 - **2a.**
 
+```
 def min_heapify(a, n, i):
     l = 2*i + 1
     r = 2*i + 2
@@ -71,7 +72,9 @@ def min_heapify(a, n, i):
 
         a[i], a[smallest] = a[smallest], a[i]
         min_heapify(a, n, smallest)
+```
 
+```
 def build_min_heap(a, n):
 
     #Start bottom-up using the leaves since they are already heaps.
@@ -79,6 +82,7 @@ def build_min_heap(a, n):
     for i in range(n//2 -1, -1, -1): #n//2-1 is the last internal node of the tree
 
         min_heapify(a, n, i)
+```
 
 - Correctness
     - We store the heap in array depicting an almost-complete binary tree with the left child of i being 2*i+1 and right child of i being represented by 2*i+2.
