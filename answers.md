@@ -40,13 +40,13 @@ Place all written answers from `problemset-04.md` here for easier grading.
 
 - Expected bits per character
 
-- Lavg = ( (2^(b+1) - k)b + (2k - 2^(b+1)) (b+1))/(k) = ceil($\log_2 k$) - ((2^(ceil of $\log_2 k$) - k)/(k)) is between ($\log_2 k$ , $\log_2 k$ + 1)
+- Lavg = ( (2^(b+1) - k)b + (2k - 2^(b+1)) (b+1))/(k) = $\lceil \log_2 k \rceil$ - ((2^$\lceil \log_2 k \rceil$ - k)/(k)) is between ($\log_2 k$ , $\log_2 k$ + 1)
 
 - The total expected cost for a document of length L: Cost = L * Lavg
 
 - With equal frequencies, Lavg depends only on k, not on the particular document, so any two documents with the same alphabet size have the same per-character cost (the total scales by L).
 
-- Special case: If k is a power of two, then Lavg = $\log_2 k$ and Huffman equals fixedl ength. Otherwise, Lavg < ceiling of $\log_2 k$ (Huffman is strictly better by (2^(ceiling of $\log_2 k$) -k))/k bits/char.
+- Special case: If k is a power of two, then Lavg = $\log_2 k$ and Huffman equals fixedl ength. Otherwise, Lavg < $\lceil \log_2 k \rceil$ (Huffman is strictly better by (2^($\lceil \log_2 k \rceil$) -k))/k bits/char.
 
 
 - **2a.**
@@ -125,7 +125,7 @@ if N < 0:
 if N == 0:
 	return 0, {}
 
-#If there is no cap on the denominations of the currency, then the highest denomination would be 2^(ceiling $\log_2 N$ of N)).
+#If there is no cap on the denominations of the currency, then the highest denomination would be 2^($\lceil \log_2 k \rceil$)).
 
 if k is None:
 	k = max(0, N.bit_length() - 1)
