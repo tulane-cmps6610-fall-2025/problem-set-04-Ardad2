@@ -86,11 +86,9 @@ def build_min_heap(a, n):
 
 - Correctness
     - We store the heap in array depicting an almost-complete binary tree with the left child of i being 2*i+1 and right child of i being represented by 2*i+2.
-
-    -Invariant for the bottom-up approach: When we call min_heapify(a, n, i), both the subtrees rooted at i's children are already min-heaps.
-        -Base: all leaves ( i >= n//2) are heaps.
-        
-        -Step: min_heapify compares a[i] with the smaller child, swaps if needed, and recurses only into that child. As the child's subtree was a heap, pushing the larger key down will mantain the heap property below. By the time the loop finishes at i=0, the whole tree is a heap.
+    -  -Invariant for the bottom-up approach: When we call min_heapify(a, n, i), both the subtrees rooted at i's children are already min-heaps.
+    	- Base: all leaves ( i >= n//2) are heaps.
+     	- Step: min_heapify compares a[i] with the smaller child, swaps if needed, and recurses only into that child. As the child's subtree was a heap, pushing the larger key down will mantain the heap property below. By the time the loop finishes at i=0, the whole tree is a heap.
 
 
 - Each call to min_heapify(i) will cost O($h_{\mathcal i}$) where $h_{\mathcal i}$ is the height of the nodes at i, how many levels it can move down.
@@ -304,9 +302,9 @@ chosen.reverse()
 return dp[n], chosen
 ```
 
-- W(n) = $W_{\mathcal sort}$ +  $W_{\mathcal p(i)}$ +  $W_{\mathcal dpSweep}$ = O(n* $\log_2 n$) + O(n * $\log_2 n$) (via binary search) + O(n) = O(n & $\log_2 n$)
-- S(n) = Same as W(n) = O(n$\log_2 n$) (since the code is sequential)
+- W(n) = $W_{\mathcal sort}$ +  $W_{\mathcal p(i)}$ +  $W_{\mathcal dpSweep}$ = O(n* $\log_2 n$) + O(n * $\log_2 n$) (via binary search) + O(n) = O(n * $\log_2 n$ )
+- S(n) = Same as W(n) = O(n * $\log_2 n$ ) (since the code is sequential)
 
 - Sort and p(i) can be parallelized.
-    - S(sorting) = O(($\log_2 n$)^2), S(p(i)) = O($\log_2 n$), S(dpSweep) = O(n). S(n) = O(n + ($\log_2 n$)^2) = O(n). 
+    - S(sorting) = O(( $\log_2 n$ )^2), S(p(i)) = O( $\log_2 n$ ), S(dpSweep) = O(n). S(n) = O(n + ( $\log_2 n$ )^2) = O(n). 
     - W(n) = O(n* $\log_2 n$) as before.
