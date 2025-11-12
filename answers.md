@@ -23,7 +23,7 @@ Place all written answers from `problemset-04.md` here for easier grading.
 
 - A trend that I can observe is that the ratio of the total cost obtained by the Huffman encoding vs Fixed-length encoding, is always less than 1, with Huffman encoding always being cheaper, and the ratio seems to be in the 0.6-0.7 ratio, regardless of size, though for this I'll have to observe more samples and that too of hopefully diverse sizes to get a more accurate inference.
 
-- The reason for this reason is that Fixed length uses B = ceiling of $\log_2$ of k bits per character for k distinct symbols whereas Huffman assigns shorter codes to the more frequent symbols.
+- The reason for this reason is that Fixed length uses B = ceiling of $\log_2 k$ of k bits per character for k distinct symbols whereas Huffman assigns shorter codes to the more frequent symbols.
 
     - For any source with empirical frequencies, the average Huffman length Lavg would obey H <= Lavg < H + 1, where H is the Shannon entropy (bits/char). For English text and k ~= 70-100, B is around 7 bits, and the typical H is around 4.5-5.0, which gives a ratio Lavg/B ~= 0.6-0.7 as was observed.
 
