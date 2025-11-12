@@ -29,7 +29,7 @@ fields.c    |           78050          |     56206           | 56206/78050 = 0.7
 
     - More sekewd frequencies would lead to a more smaller ratio and for more uniform frequencies, the ratio will approach 1.
 
-- **e.**
+- **1e.**
 
 - Let k = |sigma| be the number of distinct symbols.
 - If all k symbols occur equally often, the Huffman will builds an almost balanced tree and will only use two code lengths:
@@ -72,9 +72,6 @@ def min_heapify(a, n, i):
         a[i], a[smallest] = a[smallest], a[i]
         min_heapify(a, n, smallest)
 
-In the worst-case, min-heapify will 
-
-
 def build_min_heap(a, n):
 
     #Start bottom-up using the leaves since they are already heaps.
@@ -84,17 +81,17 @@ def build_min_heap(a, n):
         min_heapify(a, n, i)
 
 - Correctness
--- We store the heap in array depicting an almost-complete binary tree with the left child of i being 2*i+1 and right child of i being represented by 2*i+2.
+    - We store the heap in array depicting an almost-complete binary tree with the left child of i being 2*i+1 and right child of i being represented by 2*i+2.
 
---Invariant for the bottom-up approach: When we call min_heapify(a, n, i), both the subtrees rooted at i's children are already min-heaps.
+    -Invariant for the bottom-up approach: When we call min_heapify(a, n, i), both the subtrees rooted at i's children are already min-heaps.
 
----Base: all leaves ( i >= n//2) are heaps.
----Step: min_heapify compares a[i] with the smaller child, swaps if needed, and recurses only into that child. As the child's subtree was a heap, pushing the larger key down will mantain the heap property below. By the time the loop finishes at i=0, the whole tree is a heap.
+        -Base: all leaves ( i >= n//2) are heaps.
+        -Step: min_heapify compares a[i] with the smaller child, swaps if needed, and recurses only into that child. As the child's subtree was a heap, pushing the larger key down will mantain the heap property below. By the time the loop finishes at i=0, the whole tree is a heap.
 
 
 - Each call to min_heapify(i) will cost O(hi) where hi is the height of the nodes at i, how many levels it can move down.
 - In a complete binary tree, the number of nodes at height h is at most n/2^(h+1). 
--- Thus, the total work <= summation from h>=0 of (n/2^(h+1)) * O(h) = O(n * summation from h>=0 of ((h)/(2^(h+1)))) = O(n), since summation of all h>=0 of (h/2^(h+1)) = 1.
+    - Thus, the total work <= summation from h>=0 of (n/2^(h+1)) * O(h) = O(n * summation from h>=0 of ((h)/(2^(h+1)))) = O(n), since summation of all h>=0 of (h/2^(h+1)) = 1.
 
 
 - **2b.**
@@ -103,11 +100,11 @@ def build_min_heap(a, n):
 
 - Another approach is to do Level-parallel heapify: Grouping the nodes by the depth and then running sift_down in parallel for all the nodes at the same depth and then proceeding from the deepest internal level to the root.
 
--- The nodes on a level touch disjoint subtrees, so there are no conflicts and the childrne have already been heapified. 
+    - The nodes on a level touch disjoint subtrees, so there are no conflicts and the childrne have already been heapified. 
 
--- The total work will remain O(N) but the span would be sum over the levels of the longest sift_down at that level: Summation from h = 1 to floor of (log2n)O(h) = O(log2n). 
+    - The total work will remain O(N) but the span would be sum over the levels of the longest sift_down at that level: Summation from h = 1 to floor of (log2n)O(h) = O(log2n). 
 
---- In contrast, meldable heaps with parallel reduce via meld as was proven in the class have W(n) = O(nlogn), S(n) = O(log2n) as expected.
+        - In contrast, meldable heaps with parallel reduce via meld as was proven in the class have W(n) = O(nlogn), S(n) = O(log2n) as expected.
 
 - **3a.**
 
@@ -150,49 +147,49 @@ Return coins_used, breakdown
  - The maximum amount of coins we can take of denomination p is q = floor(N/(2^p)).
  - Taking q coins of value 2^P, we can reduce N to N - q.2^p, and then repeat the same. N < 2^p, so the next p will be <= p -1. We will stop when N = 0.
  - Greedy Choice Property
- -- Claim: There exists an optima solution uses exactly q = floor(N/(2^p)) coins of value 2^p.
- -- Proof: 
- --- If we use more than q coins of 2^p, we would exceed N. 
- --- Suppose an optimal solution S uses fewer than q coins of value 2^p. Then at least 2^p of the amount will be left that needs to be covered by smaller coins: {2^0, .., 2^p-1}. Any total >= 2^p would require at least two coins, the largest smaller coin is 2^p-1 and at least another one 2^1 coin would be required. 
- --- These two coins can be replaced by one 2^p coin that keeps the sum the same and also reduces the coin count by 1.
- --- Repeating this until possible would yields a solution with more 2^p coins and strictly fewer coins overall, therefore contradicting the optimality of S.
- --- Therefore, an optimal solution must use exactly q coins of value 2^P.
+    - Claim: There exists an optima solution uses exactly q = floor(N/(2^p)) coins of value 2^p.
+    - Proof: 
+        - If we use more than q coins of 2^p, we would exceed N. 
+        - Suppose an optimal solution S uses fewer than q coins of value 2^p. Then at least 2^p of the amount will be left that needs to be covered by smaller coins: {2^0, .., 2^p-1}. Any total >= 2^p would require at least two coins, the largest smaller coin is 2^p-1 and at least another one 2^1 coin would be required. 
+        - These two coins can be replaced by one 2^p coin that keeps the sum the same and also reduces the coin count by 1.
+        - Repeating this until possible would yields a solution with more 2^p coins and strictly fewer coins overall, therefore contradicting the optimality of S.
+        -Therefore, an optimal solution must use exactly q coins of value 2^P.
 
 - Optimal Substructure
--- Let R = N - q*2^p (so 0 <= R <= 2^P). 
--- Every optimal solution for N starts with those q coins of value 2^p.
--- The remaining part must solve the same problem on the amount R using only coins {2^0, ..., 2^p-1}, a coin > 2^p cannot appear because R <2^P). Therefore, we can represent the optimal substructure by: OPT(N, k) = q + OPT(R, p - 1)
+    - Let R = N - q*2^p (so 0 <= R <= 2^P). 
+    - Every optimal solution for N starts with those q coins of value 2^p.
+    - The remaining part must solve the same problem on the amount R using only coins {2^0, ..., 2^p-1}, a coin > 2^p cannot appear because R <2^P). Therefore, we can represent the optimal substructure by: OPT(N, k) = q + OPT(R, p - 1)
 
---- Proving optimality by strong induction on N: The base cases N = 0 (cost 0) and N < 2^0 are trivial. For N > 0, by the greedy choice lemma, the first step in every optimal solution is to take q coins of value 2^p. The remain R < N is solved optimally by the inductive hypothesis, so the algorithm's total coin count is q + OPT(R, p - 1) which is optimal for N.
+        - Proving optimality by strong induction on N: The base cases N = 0 (cost 0) and N < 2^0 are trivial. For N > 0, by the greedy choice lemma, the first step in every optimal solution is to take q coins of value 2^p. The remain R < N is solved optimally by the inductive hypothesis, so the algorithm's total coin count is q + OPT(R, p - 1) which is optimal for N.
 
 
 - **3c.**
 
 - Work = O(min(k+1, floor(log2N) + 1))
--- Each loop iterations handles exactly one coin size 2^p with constant-time updates. It steps p down by 1 each time and never evisits a size, the so the number iteration is at most the number of avaliable sizes: k + 1 if there's a cap at 2^k or floor(log2N) + 1 if no such restriction is provided (largest coin chosen).
--- This is generally around O(logN) for the unbounded cases.
+    - Each loop iterations handles exactly one coin size 2^p with constant-time updates. It steps p down by 1 each time and never evisits a size, the so the number iteration is at most the number of avaliable sizes: k + 1 if there's a cap at 2^k or floor(log2N) + 1 if no such restriction is provided (largest coin chosen).
+    - This is generally around O(logN) for the unbounded cases.
 
 - Span = O(min(k+1, floor(log2N) + 1)), the same as work since the algorithm is sequential, with the iterations depending on the result of the previous ones.
 
 - **4a.**
 
 - Here are two examples which show that the previous greedy choice of picking the largest possible denomination as comapred to the given amount N dollars would not work or not work optimally.
-- Eg 1. Let N = 100 and D = {40, 60, 70}. Greedy picks 70 first, remainder 30 is not representable so Greedy fails to make chance. Change can be made by taking 60 + 40, which is 2 coins.
-- Eg 2. Let N = 100 and D = {10, 30, 80, 70}. Greedy picks 80 first, but to make 20, it will have to take 2 10's. Therefore taking 3 coins. If it had taking 70 and 30, it would have been done in just 2 coins. So while Greedy leads to a solution it is not optimal.
+    - Eg 1. Let N = 100 and D = {40, 60, 70}. Greedy picks 70 first, remainder 30 is not representable so Greedy fails to make chance. Change can be made by taking 60 + 40, which is 2 coins.
+    - Eg 2. Let N = 100 and D = {10, 30, 80, 70}. Greedy picks 80 first, but to make 20, it will have to take 2 10's. Therefore taking 3 coins. If it had taking 70 and 30, it would have been done in just 2 coins. So while Greedy leads to a solution it is not optimal.
 - Therefore, we have two examples that prove the greedy choice might not result in a solution and even if it did, it might not be the optimal one.
 
 
 
 - **4b.**
 - Optimal Substructure
-- Define OPT(N) = the minimum number of coins whose values sum to N (and +infinity if impossible)
-- For any N > 0 with OPT(N) < +infinity, there exists a coin d element of D with d <= N such that
-- OPT(N) = 1 + OPT(N - d)
-- The multiset of coins used for N - d in that equality is itself optimal for the amount N - d.
-- Proof 
-- Take any optimal solution S for N. Let d the element of S be one coin in that solution, and let S' = S \ {d}. Then S' sums to N - d and |S| = 1 + |S'| = OPT(N).
-- If S' were not optimal for N - d, there would exist another solution T for N - d with |T| < |S'|. But then T U {d} is a solution for N using |T| + 1 < |S'| + 1 = OPT(N) coins, a contradiction.
-- Therefore, S' must be optimal for N - d, giving the stated recurrence.
+    - Define OPT(N) = the minimum number of coins whose values sum to N (and +infinity if impossible)
+    - For any N > 0 with OPT(N) < +infinity, there exists a coin d element of D with d <= N such that
+    - OPT(N) = 1 + OPT(N - d)
+    - The multiset of coins used for N - d in that equality is itself optimal for the amount N - d.
+    - Proof 
+        - Take any optimal solution S for N. Let d the element of S be one coin in that solution, and let S' = S \ {d}. Then S' sums to N - d and |S| = 1 + |S'| = OPT(N).
+        - If S' were not optimal for N - d, there would exist another solution T for N - d with |T| < |S'|. But then T U {d} is a solution for N using |T| + 1 < |S'| + 1 = OPT(N) coins, a contradiction.
+        - Therefore, S' must be optimal for N - d, giving the stated recurrence.
 
 
 
@@ -223,26 +220,24 @@ answer = dp[N]
 - For each job, i let p(i) = max{ j < i | fj <= si} (define p(i) = 0 if there is no job that does not ovelrap with it)
 - Let OPT(i) be the maximum total value attainable using only jobs {1, ..., i}, then the optimal solution satisfies OPT(i) = max(OPT( - 1), vi + OPT(p(i))), OPT(0) = 0.
 - Proof: Consider an optimal solution Si for the first i jobs.
--- Case 1: If i is not an element in Si, then Si uses only the jobs in {1, ..., i-1}, so its value is OPT(i -1). (Otherwise we could replace it with a better solution on 1..i - 1 and improve Si, which is a contradiction)
--- Case 2: If i is an element in Si, then every other job in Si finishes by si, hence it lies in {1,..,p(i)}. if those jobs were not optimal for p(i), swapping in an optimal solution on 1..p(i) would increase the total value, which is a contradiction. Thus the value is vi + OPT(p(i)),.
--- Taking the better of the two cases yields the recurrence and proves the optimal substructure.
+    - Case 1: If i is not an element in Si, then Si uses only the jobs in {1, ..., i-1}, so its value is OPT(i -1). (Otherwise we could replace it with a better solution on 1..i - 1 and improve Si, which is a contradiction)
+    - Case 2: If i is an element in Si, then every other job in Si finishes by si, hence it lies in {1,..,p(i)}. if those jobs were not optimal for p(i), swapping in an optimal solution on 1..p(i) would increase the total value, which is a contradiction. Thus the value is vi + OPT(p(i)),.
+    - Taking the better of the two cases yields the recurrence and proves the optimal substructure.
 
 
 - **5b.**
 
 - It seems that the greedy-choice property does not seem to hold for this particular algorithm.
 - Counterexample 1 - If we pick earliest finish time
--- Jobs(s, f, v) = a1=(0, 2, 1), a2 = (2, 4, 1), a3 = (0, 4, 3). 
--- Greedy by earliest finish will pick a1 then a2 (value 1 + 1 = 2) whereas the optimal pick was a3 (value = 3). Therefore, it is sub-optimal.
+    - Jobs(s, f, v) = a1=(0, 2, 1), a2 = (2, 4, 1), a3 = (0, 4, 3). 
+    - Greedy by earliest finish will pick a1 then a2 (value 1 + 1 = 2) whereas the optimal pick was a3 (value = 3). Therefore, it is sub-optimal.
 - Counterexample 2- Picking the highest value first
--- Jobs = a1=( 0,10,9), a2= (0,5,6), a3= (5,10,6). Greedy-by-value would pick a1 (value 9), whereas the optimal picks would have been a2 + a3 (value 2), so this greedy is sub-optimal).
+    - Jobs = a1=( 0,10,9), a2= (0,5,6), a3= (5,10,6). Greedy-by-value would pick a1 (value 9), whereas the optimal picks would have been a2 + a3 (value 2), so this greedy is sub-optimal).
 
 - Counterexample 3 - Picking Best Value/Length
--- Jobs = a1=(0,2,5) (ratio: 2.5), a2 = (2, 4, 5) (ratio: 2.5), a3 = (0, 5, 12) (ratio: 2.4). Greedy would pick a1 + a2(10), whereas optimal pick is a3 (value: 12).
+    - Jobs = a1=(0,2,5) (ratio: 2.5), a2 = (2, 4, 5) (ratio: 2.5), a3 = (0, 5, 12) (ratio: 2.4). Greedy would pick a1 + a2(10), whereas optimal pick is a3 (value: 12).
 
 - There does seem to be any greedy choice for this.
-
-
 
 - **5c.**
 
@@ -304,5 +299,5 @@ return dp[n], chosen
 - S(n) = Same as W(n) = O(nlogn) (since the code is sequential)
 
 - Sort and p(i) can be parallelized.
--- S(sorting) = O((logn)^2), S(p(i)) = O(log n), S(dpSweep) = O(n). S(n) = O(n + log(n)^2) = O(n). 
--- W(n) = O(nlogn) as before.
+    - S(sorting) = O((logn)^2), S(p(i)) = O(log n), S(dpSweep) = O(n). S(n) = O(n + log(n)^2) = O(n). 
+    - W(n) = O(nlogn) as before.
