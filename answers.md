@@ -40,11 +40,11 @@ Place all written answers from `problemset-04.md` here for easier grading.
 
 - Expected bits per character
 
-- $L_{\mathcal avg}} = ( (2^(b+1) - k)b + (2k - 2^(b+1)) (b+1))/(k) = $\lceil \log_2 k \rceil$ - ((2^$\lceil \log_2 k \rceil$ - k)/(k))$ is between ($\log_2 k$ , $\log_2 k$ + 1)
+- $L_{\mathcal avg}$ = ( (2^(b+1) - k)b + (2k - 2^(b+1)) (b+1))/(k) = $\lceil \log_2 k \rceil$ - ((2^($\lceil \log_2 k \rceil$) - k)/(k)) is between ($\log_2 k$ , $\log_2 k$ + 1)
 
 - The total expected cost for a document of length L: Cost = L * Lavg
 
-- With equal frequencies, Lavg depends only on k, not on the particular document, so any two documents with the same alphabet size have the same per-character cost (the total scales by L).
+- With equal frequencies, $L_{\mathcal avg}$ depends only on k, not on the particular document, so any two documents with the same alphabet size have the same per-character cost (the total scales by L).
 
 - Special case: If k is a power of two, then Lavg = $\log_2 k$ and Huffman equals fixedl ength. Otherwise, Lavg < $\lceil \log_2 k \rceil$ (Huffman is strictly better by (2^($\lceil \log_2 k \rceil$) -k))/k bits/char.
 
@@ -93,7 +93,7 @@ def build_min_heap(a, n):
         -Step: min_heapify compares a[i] with the smaller child, swaps if needed, and recurses only into that child. As the child's subtree was a heap, pushing the larger key down will mantain the heap property below. By the time the loop finishes at i=0, the whole tree is a heap.
 
 
-- Each call to min_heapify(i) will cost O(hi) where hi is the height of the nodes at i, how many levels it can move down.
+- Each call to min_heapify(i) will cost O($h_{\mathcal i}$) where $h_{\mathcal i}$ is the height of the nodes at i, how many levels it can move down.
 - In a complete binary tree, the number of nodes at height h is at most n/2^(h+1). 
     - Thus, the total work <= summation from h>=0 of (n/2^(h+1)) * O(h) = O(n * summation from h>=0 of ((h)/(2^(h+1)))) = O(n), since summation of all h>=0 of (h/2^(h+1)) = 1.
 
@@ -156,7 +156,7 @@ Return coins_used, breakdown
     - Claim: There exists an optima solution uses exactly q = floor(N/(2^p)) coins of value 2^p.
     - Proof: 
         - If we use more than q coins of 2^p, we would exceed N. 
-        - Suppose an optimal solution S uses fewer than q coins of value 2^p. Then at least 2^p of the amount will be left that needs to be covered by smaller coins: {2^0, .., 2^p-1}. Any total >= 2^p would require at least two coins, the largest smaller coin is 2^p-1 and at least another one 2^1 coin would be required. 
+        - Suppose an optimal solution S uses fewer than q coins of value 2^p. Then at least 2^p of the amount will be left that needs to be covered by smaller coins: {2^0, .., 2^(p-1)}. Any total >= 2^p would require at least two coins, the largest smaller coin is 2^p-1 and at least another one 2^1 coin would be required. 
         - These two coins can be replaced by one 2^p coin that keeps the sum the same and also reduces the coin count by 1.
         - Repeating this until possible would yields a solution with more 2^p coins and strictly fewer coins overall, therefore contradicting the optimality of S.
         -Therefore, an optimal solution must use exactly q coins of value 2^P.
@@ -203,7 +203,7 @@ Return coins_used, breakdown
 - **4c.**
 
 ```
-Let D = {d1,..., dk} be the denominations.
+Let D = {$d_{\mathcal 1}$,..., $d_{\mathcal k}$} be the denominations.
 dp[x] = the minimum no. of coints to make amount of coins (or +infinity if impossible to do so)
 
 dp[0] = 0
@@ -224,12 +224,12 @@ answer = dp[N]
 - **5a.**
 
 - Yes, this problem will still have an optimal substructure.
-- Let's have the tasks sorted by nondecreasing finish times: f1 <= .. <= fn.
+- Let's have the tasks sorted by nondecreasing finish times: $f_{\mathcal 1}$ <= .. <= $f_{\mathcal n}$.
 - For each job, i let p(i) = max{ j < i | fj <= si} (define p(i) = 0 if there is no job that does not ovelrap with it)
 - Let OPT(i) be the maximum total value attainable using only jobs {1, ..., i}, then the optimal solution satisfies OPT(i) = max(OPT( - 1), vi + OPT(p(i))), OPT(0) = 0.
 - Proof: Consider an optimal solution Si for the first i jobs.
-    - Case 1: If i is not an element in Si, then Si uses only the jobs in {1, ..., i-1}, so its value is OPT(i -1). (Otherwise we could replace it with a better solution on 1..i - 1 and improve Si, which is a contradiction)
-    - Case 2: If i is an element in Si, then every other job in Si finishes by si, hence it lies in {1,..,p(i)}. if those jobs were not optimal for p(i), swapping in an optimal solution on 1..p(i) would increase the total value, which is a contradiction. Thus the value is vi + OPT(p(i)),.
+    - Case 1: If i is not an element in Si, then Si uses only the jobs in {1, ..., i-1}, so its value is OPT(i -1). (Otherwise we could replace it with a better solution on 1..i - 1 and improve $S_{\mathcal i}$, which is a contradiction)
+    - Case 2: If i is an element in Si, then every other job in $S_{\mathcal i}$ finishes by $s_{\mathcal i}$, hence it lies in {1,..,p(i)}. if those jobs were not optimal for p(i), swapping in an optimal solution on 1..p(i) would increase the total value, which is a contradiction. Thus the value is $v_{\mathcal i}$ + OPT(p(i)),.
     - Taking the better of the two cases yields the recurrence and proves the optimal substructure.
 
 
@@ -304,7 +304,7 @@ chosen.reverse()
 return dp[n], chosen
 ```
 
-- W(n) = W(sort by finish time) + W(computing p(i)) + W(dpSweep) = O(n* $\log_2 n$) + O(n * $\log_2 n$) (via binary search) + O(n) = O(n & $\log_2 n$)
+- W(n) = $W_{\mathcal sort}$ +  $W_{\mathcal p(i)}$ +  $W_{\mathcal dpSweep}$ = O(n* $\log_2 n$) + O(n * $\log_2 n$) (via binary search) + O(n) = O(n & $\log_2 n$)
 - S(n) = Same as W(n) = O(n$\log_2 n$) (since the code is sequential)
 
 - Sort and p(i) can be parallelized.
