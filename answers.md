@@ -40,7 +40,7 @@ Place all written answers from `problemset-04.md` here for easier grading.
 
 - Expected bits per character
 
-- $$ L_{\mathcal avg}} $$ = ( (2^(b+1) - k)b + (2k - 2^(b+1)) (b+1))/(k) = $\lceil \log_2 k \rceil$ - ((2^$\lceil \log_2 k \rceil$ - k)/(k)) is between ($\log_2 k$ , $\log_2 k$ + 1)
+- $L_{\mathcal avg}}$ = ( (2^(b+1) - k)b + (2k - 2^(b+1)) (b+1))/(k) = $\lceil \log_2 k \rceil$ - ((2^$\lceil \log_2 k \rceil$ - k)/(k)) is between ($\log_2 k$ , $\log_2 k$ + 1)
 
 - The total expected cost for a document of length L: Cost = L * Lavg
 
