@@ -25,7 +25,7 @@ Place all written answers from `problemset-04.md` here for easier grading.
 
 - The reason for this is that Fixed length uses B = $\lceil \log_2 k \rceil$ bits per character for k distinct symbols whereas Huffman assigns shorter codes to the more frequent symbols.
 
-    - For any source with empirical frequencies, the average Huffman length Lavg would obey H <= Lavg < H + 1, where H is the Shannon entropy (bits/char). For English text and k ~= 70-100, B is around 7 bits, and the typical H is around 4.5-5.0, which gives a ratio Lavg/B ~= 0.6-0.7 as was observed.
+    - For any source with empirical frequencies, the average Huffman length $L_{\mathcal avg}$  would obey H <= $L_{\mathcal avg}$  < H + 1, where H is the Shannon entropy (bits/char). For English text and k ~= 70-100, B is around 7 bits, and the typical H is around 4.5-5.0, which gives a ratio $L_{\mathcal avg}$ /B ~= 0.6-0.7 as was observed.
 
     - More sekewd frequencies would lead to a more smaller ratio and for more uniform frequencies, the ratio will approach 1.
 
@@ -42,11 +42,11 @@ Place all written answers from `problemset-04.md` here for easier grading.
 
 - $L_{\mathcal avg}$ = ( (2^(b+1) - k)b + (2k - 2^(b+1)) (b+1))/(k) = $\lceil \log_2 k \rceil$ - ((2^($\lceil \log_2 k \rceil$) - k)/(k)) is between ($\log_2 k$ , $\log_2 k$ + 1)
 
-- The total expected cost for a document of length L: Cost = L * Lavg
+- The total expected cost for a document of length L: Cost = L * $L_{\mathcal avg}$ 
 
 - With equal frequencies, $L_{\mathcal avg}$ depends only on k, not on the particular document, so any two documents with the same alphabet size have the same per-character cost (the total scales by L).
 
-- Special case: If k is a power of two, then Lavg = $\log_2 k$ and Huffman equals fixedl ength. Otherwise, Lavg < $\lceil \log_2 k \rceil$ (Huffman is strictly better by (2^($\lceil \log_2 k \rceil$) -k))/k bits/char.
+- Special case: If k is a power of two, then $L_{\mathcal avg}$  = $\log_2 k$ and Huffman equals fixedl ength. Otherwise, $L_{\mathcal avg}$  < $\lceil \log_2 k \rceil$ (Huffman is strictly better by (2^($\lceil \log_2 k \rceil$) -k))/k bits/char.
 
 
 - **2a.**
