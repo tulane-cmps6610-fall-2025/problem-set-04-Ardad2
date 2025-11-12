@@ -25,16 +25,16 @@ fields.c    |           78050          |     56206           | 56206/78050 = 0.7
 
 - The reason for this reason is that Fixed length uses B = ceiling of log base 2 of k bits per character for k distinct symbols whereas Huffman assigns shorter codes to the more frequent symbols.
 
--- For any source with empirical frequencies, the average Huffman length Lavg would obey H <= Lavg < H + 1, where H is the Shannon entropy (bits/char). For English text and k ~= 70-100, B is around 7 bits, and the typical H is around 4.5-5.0, which gives a ratio Lavg/B ~= 0.6-0.7 as was observed.
+    - For any source with empirical frequencies, the average Huffman length Lavg would obey H <= Lavg < H + 1, where H is the Shannon entropy (bits/char). For English text and k ~= 70-100, B is around 7 bits, and the typical H is around 4.5-5.0, which gives a ratio Lavg/B ~= 0.6-0.7 as was observed.
 
--- More sekewd frequencies would lead to a more smaller ratio and for more uniform frequencies, the ratio will approach 1.
+    - More sekewd frequencies would lead to a more smaller ratio and for more uniform frequencies, the ratio will approach 1.
 
 - **e.**
 
 - Let k = |sigma| be the number of distinct symbols.
 - If all k symbols occur equally often, the Huffman will builds an almost balanced tree and will only use two code lengths:
-1. the short length b = floor of log2 of k 
-2. the long length b + 1.
+    1. the short length b = floor of log2 of k 
+    2. the long length b + 1.
 
 - (Exactly 2^(b+1) - k symbols get length b; the rest get length b + 1)
 
@@ -47,9 +47,6 @@ fields.c    |           78050          |     56206           | 56206/78050 = 0.7
 - With equal frequencies, Lavg depends only on k, not on the particular document, so any two documents with the same alphabet size have the same per-character cost (the total scales by L).
 
 - Special case: If k is a power of two, then Lavg = log2k and Huffman equals fixedl ength. Otherwise, Lavg < ceiling of log2k (Huffman is strictly better by (2^(ceiling of log2k) -k))/k bits/char.
-
-
-
 
 
 - **2a.**
