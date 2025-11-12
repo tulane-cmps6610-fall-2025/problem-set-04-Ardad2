@@ -54,8 +54,6 @@ fields.c    |           78050          |     56206           | 56206/78050 = 0.7
 
 - **2a.**
 
-
-
 def min_heapify(a, n, i):
     l = 2*i + 1
     r = 2*i + 2
@@ -250,3 +248,64 @@ answer = dp[N]
 
 
 - **5c.**
+
+def weighted_interval_scheduling(tasks: List[Tuple[int, int, int]]):
+
+#tasks[i] = (s_i, f_i, v_i) (start, finish, value) Return (best_value, chosen_indices)
+
+
+tasks = sorted(tasks, key=lambda t: t[1]) #sort by finish time
+
+starts = [s for s, f, v in tasks]
+finishes = [f for s, f, v in tasks]
+values = [v for s, f, v in tasks]
+
+n = len(tasks)
+
+#2) p[i] = the index of the last job that does not overlap with job i, -1 if none.
+
+p = [-1] * n #fill out the default values.
+
+for i in range(n):
+    # largest j < i with finishes[j] <= starts[i]
+    j = bisect_right(finishes, starts[i], 0, i) - 1
+    p[i] = j
+
+#3 DP over the prefix tasks, dp[i] = the best value using the first i jobs (jobs[0 .. i -1])
+
+dp = [0] * (n + 1)
+choose = [False] * (n + 1)
+
+for i in range(1, n + 1):
+    #Either take or skip the task
+
+    take = values[i-1] + dp[p[i-1] + 1] 
+    skip = dp[i-1]
+
+    if take > skip: 
+        dp[i] = take
+        choose[i] = True
+    else:
+        dp[i] = skip
+
+#4) reconstruct the chosen set with the indices in sorted order.
+
+chosen = []
+i = n
+
+while i > 0:
+    if choose[i]:
+        chosen.append(i - 1)
+        i = p[i - 1] + 1
+    else:
+        i -= 1
+chosen.reverse()
+
+return dp[n], chosen
+
+- W(n) = W(sort by finish time) + W(computing p(i)) + W(dpSweep) = O(nLogn) + O(nlogn) (via binary search) + O(n) = O(nlogn)
+- S(n) = Same as W(n) = O(nlogn) (since the code is sequential)
+
+- Sort and p(i) can be parallelized.
+-- S(sorting) = O((logn)^2), S(p(i)) = O(log n), S(dpSweep) = O(n). S(n) = O(n + log(n)^2) = O(n). 
+-- W(n) = O(nlogn) as before.
