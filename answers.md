@@ -108,7 +108,7 @@ def build_min_heap(a, n):
 
     - The total work will remain O(N) but the span would be sum over the levels of the longest sift_down at that level: Summation from h = 1 to floor of ($\log_2 n$)O(h) = O($\log_2 n$). 
 
-        - In contrast, meldable heaps with parallel reduce via meld as was proven in the class have W(n) = O(n$\log_2 n$), S(n) = O($\log_2 n$) as expected.
+        - In contrast, meldable heaps with parallel reduce via meld as was proven in the class have W(n) = O(n* $\log_2 n$), S(n) = O($\log_2 n$) as expected.
 
 - **3a.**
 
