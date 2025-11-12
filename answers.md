@@ -112,6 +112,7 @@ def build_min_heap(a, n):
 
 - **3a.**
 
+```
 def change_pow2(N: int, k: int | None = none):
 
 #Return the (minimum no. of coins, the breakdown of each coin with how many times used) for making a given amount N with the coin with denominations {2^0, 2^1, 2^2, …, 2^k}.
@@ -144,6 +145,7 @@ for power in range(k, -1, -1): # Greedy: Go from 2^k down to 2^0
 		break; #We are done.
 
 Return coins_used, breakdown
+```
 
 - **3b.**
  - Given an amount N, let p, which is the maximum power denomination coin we can take, we have
@@ -200,6 +202,7 @@ Return coins_used, breakdown
 
 - **4c.**
 
+```
 Let D = {d1,..., dk} be the denominations.
 dp[x] = the minimum no. of coints to make amount of coins (or +infinity if impossible to do so)
 
@@ -211,6 +214,7 @@ for x = 1..N:
             dp[x] = min(dp[x], 1 + dp[x - d])
         
 answer = dp[N]
+```
 
 - Work: W(N) = O(N * k). Each of the N amount states consider upto k denominations once and memoization ensures that no state is recomputed.
 - Span: This implementation is sequential so O(N * k). 
@@ -244,7 +248,7 @@ answer = dp[N]
 - There does seem to be any greedy choice for this.
 
 - **5c.**
-
+```
 def weighted_interval_scheduling(tasks: List[Tuple[int, int, int]]):
 
 #tasks[i] = (s_i, f_i, v_i) (start, finish, value) Return (best_value, chosen_indices)
@@ -298,6 +302,7 @@ while i > 0:
 chosen.reverse()
 
 return dp[n], chosen
+```
 
 - W(n) = W(sort by finish time) + W(computing p(i)) + W(dpSweep) = O(nLogn) + O(nlogn) (via binary search) + O(n) = O(nlogn)
 - S(n) = Same as W(n) = O(nlogn) (since the code is sequential)
