@@ -223,10 +223,29 @@ answer = dp[N]
 
 - **5a.**
 
+- Yes, this problem will still have an optimal substructure.
+- Let's have the tasks sorted by nondecreasing finish times: f1 <= .. <= fn.
+- For each job, i let p(i) = max{ j < i | fj <= si} (define p(i) = 0 if there is no job that does not ovelrap with it)
+- Let OPT(i) be the maximum total value attainable using only jobs {1, ..., i}, then the optimal solution satisfies OPT(i) = max(OPT( - 1), vi + OPT(p(i))), OPT(0) = 0.
+- Proof: Consider an optimal solution Si for the first i jobs.
+-- Case 1: If i is not an element in Si, then Si uses only the jobs in {1, ..., i-1}, so its value is OPT(i -1). (Otherwise we could replace it with a better solution on 1..i - 1 and improve Si, which is a contradiction)
+-- Case 2: If i is an element in Si, then every other job in Si finishes by si, hence it lies in {1,..,p(i)}. if those jobs were not optimal for p(i), swapping in an optimal solution on 1..p(i) would increase the total value, which is a contradiction. Thus the value is vi + OPT(p(i)),.
+-- Taking the better of the two cases yields the recurrence and proves the optimal substructure.
 
 
 - **5b.**
 
+- It seems that the greedy-choice property does not seem to hold for this particular algorithm.
+- Counterexample 1 - If we pick earliest finish time
+-- Jobs(s, f, v) = a1=(0, 2, 1), a2 = (2, 4, 1), a3 = (0, 4, 3). 
+-- Greedy by earliest finish will pick a1 then a2 (value 1 + 1 = 2) whereas the optimal pick was a3 (value = 3). Therefore, it is sub-optimal.
+- Counterexample 2- Picking the highest value first
+-- Jobs = a1=( 0,10,9), a2= (0,5,6), a3= (5,10,6). Greedy-by-value would pick a1 (value 9), whereas the optimal picks would have been a2 + a3 (value 2), so this greedy is sub-optimal).
+
+- Counterexample 3 - Picking Best Value/Length
+-- Jobs = a1=(0,2,5) (ratio: 2.5), a2 = (2, 4, 5) (ratio: 2.5), a3 = (0, 5, 12) (ratio: 2.4). Greedy would pick a1 + a2(10), whereas optimal pick is a3 (value: 12).
+
+- There does seem to be any greedy choice for this.
 
 
 
